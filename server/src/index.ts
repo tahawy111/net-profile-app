@@ -36,8 +36,6 @@ async function loginToSite(page: Page, username: string, password: string) {
 
 app.post("/login", async function (req, res) {
   try {
-    console.log(req.body);
-
     const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
 
