@@ -42,7 +42,6 @@ function loginToSite(page, username, password) {
 app.post("/login", function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            console.log(req.body);
             const browser = yield puppeteer_1.default.launch({ headless: true });
             const page = yield browser.newPage();
             const result = yield loginToSite(page, req.body.username, req.body.password);
@@ -84,7 +83,7 @@ app.post("/renew", function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         var _a;
         try {
-            const browser = yield puppeteer_1.default.launch({ headless: false });
+            const browser = yield puppeteer_1.default.launch({ headless: true });
             const page = yield browser.newPage();
             const result = (yield loginToSite(page, req.body.username, req.body.password));
             const currentService = result.serviceData.currentService;
@@ -151,7 +150,7 @@ app.post("/renew", function (req, res) {
                 }
             });
             yield page.waitForNavigation();
-            yield browser.close();
+            // await browser.close();
             if (result.error) {
                 return res.status(401).json({ msg: result.error });
             }
